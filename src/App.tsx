@@ -92,7 +92,7 @@ const Finish = () => {
 function App() {
   return (
     <PromptsProvider>
-      <Router>
+      <Router basename="/ai-frontend">
         <AnimatePresence mode="wait">
           <Routes>
             <Route
