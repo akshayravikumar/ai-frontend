@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import LandingScreen from './components/LandingScreen';
 import AIScript from './components/AIScript';
@@ -92,7 +92,7 @@ const Finish = () => {
 function App() {
   return (
     <PromptsProvider>
-      <Router basename='/give-ai-a-break'>
+      <Router>
         <AnimatePresence mode="wait">
           <Routes>
             <Route
