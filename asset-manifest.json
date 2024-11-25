@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ai-frontend/static/css/main.a368f0f1.css",
+    "main.js": "/ai-frontend/static/js/main.b0893ec9.js",
+    "index.html": "/ai-frontend/index.html",
+    "main.a368f0f1.css.map": "/ai-frontend/static/css/main.a368f0f1.css.map",
+    "main.b0893ec9.js.map": "/ai-frontend/static/js/main.b0893ec9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a368f0f1.css",
+    "static/js/main.b0893ec9.js"
+  ]
+}
