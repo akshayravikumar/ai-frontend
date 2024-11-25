@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "postcss.config.js",
-  "homepage": "https://akshayr.xyz/ai-frontend",
+  "homepage": "https://akshayr.xyz/give-ai-a-break",
   "scripts": {
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
