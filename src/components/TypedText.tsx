@@ -17,58 +17,43 @@ const TypedText: React.FC<TypedTextProps> = ({
   className = '',
 }) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [characters, setCharacters] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayedChars, setDisplayedChars] = useState('');
 
   useEffect(() => {
-    if (currentTextIndex < texts.length) {
-      setCharacters(texts[currentTextIndex].split(''));
-      setCurrentIndex(0);
-    }
-  }, [currentTextIndex, texts]);
+    const currentText = texts[currentTextIndex];
 
-  useEffect(() => {
-    if (currentIndex < characters.length) {
-      const timeout = setTimeout(() => {
-        setCurrentIndex(prev => prev + 1);
+    if (displayedChars.length < currentText.length) {
+      const timer = setTimeout(() => {
+        setDisplayedChars(currentText.slice(0, displayedChars.length + 1));
       }, typingSpeed);
-      return () => clearTimeout(timeout);
-    } else if (currentTextIndex < texts.length - 1) {
-      const timeout = setTimeout(() => {
+      return () => clearTimeout(timer);
+    }
+
+    if (currentTextIndex < texts.length - 1) {
+      const timer = setTimeout(() => {
         setCurrentTextIndex(prev => prev + 1);
+        setDisplayedChars('');
       }, pauseBetweenTexts);
-      return () => clearTimeout(timeout);
-    } else {
+      return () => clearTimeout(timer);
+    }
+
+    if (currentTextIndex === texts.length - 1 && currentTextIndex === texts.length - 1) {
       onComplete?.();
     }
-  }, [currentIndex, characters, currentTextIndex, texts.length, typingSpeed, pauseBetweenTexts]);
+  }, [currentTextIndex, displayedChars, texts, typingSpeed, pauseBetweenTexts, onComplete]);
 
   return (
     <div className="font-mono flex flex-col gap-6">
       <AnimatePresence>
-        {texts.slice(0, currentTextIndex + 1).map((text, textIndex) => (
+        {texts.slice(0, currentTextIndex + 1).map((text, index) => (
           <motion.div
-            key={textIndex}
+            key={index}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
+            className={className}
           >
-            {textIndex === currentTextIndex ? (
-              characters.slice(0, currentIndex).map((char, charIndex) => (
-                <motion.span
-                  key={charIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.1 }}
-                  className={className}
-                >
-                  {char}
-                  {char === ' ' && <span> </span>}
-                </motion.span>
-              ))
-            ) : (
-              text
-            )}
+            {index === currentTextIndex ? displayedChars : text}
           </motion.div>
         ))}
       </AnimatePresence>
