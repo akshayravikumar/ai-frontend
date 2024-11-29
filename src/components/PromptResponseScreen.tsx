@@ -111,13 +111,31 @@ const PromptResponseScreen: React.FC = () => {
   if (!prompt) return null;
 
   return (
-    <div className="min-h-screen bg-black p-8 text-yellow-400">
+    <div className="min-h-screen bg-black text-yellow-400">
       <AnimatePresence mode="wait">
-        {!isResponseMode && (
-          <div className="min-h-screen bg-black p-8 text-yellow-400">
+      {!isResponseMode && prompt == null && (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="loading-message"
+          >
+            <motion.span
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ repeat: Infinity, duration: 1.8 }}
+              className="font-mono text-lg"
+            >
+              loading prompt...
+            </motion.span>
+          </motion.div>
+        )}
+        {!isResponseMode && prompt && (
+          <div className="min-h-screen bg-black p-6 text-yellow-400">
             <div className="mx-auto max-w-2xl space-y-8">
               {/* Message Bubble */}
-              <div className="rounded-lg bg-gray-900 p-6 shadow-lg">
+              <div className="rounded-lg bg-gray-900 p-4 shadow-lg">
                 <div className="mb-4 flex items-center space-x-4">
                   <div
                     className="flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold text-white"
@@ -131,8 +149,8 @@ const PromptResponseScreen: React.FC = () => {
               </div>
 
               {/* AI Description */}
-              <div className="text-lg">
-                <TypedText text={prompt.description} onComplete={() => setIsTypingDone(true)} />
+              <div className="text-md">
+                <TypedText texts={[prompt.description]} onComplete={() => setIsTypingDone(true)} />
               </div>
 
               {/* Response Input */}
@@ -194,7 +212,7 @@ const PromptResponseScreen: React.FC = () => {
                     ))}
                   </div>
                   <div className="message">
-                    <TypedText text={message} />
+                    <TypedText texts={[message]} />
                   </div>
                   <YellowButton onClick={handleNext}>
                     {prompts.findIndex(p => p === slug) < prompts.length - 1 ? 'next' : 'finish'}

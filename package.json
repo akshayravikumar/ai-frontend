@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "postcss.config.js",
+  "homepage": "https://akshayr.xyz/give-ai-a-break",
   "scripts": {
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
-    "predeploy": "npm run build",
+    "predeploy": "REACT_APP_SERVER_URL=https://backend-298953993078.us-east1.run.app npm run build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

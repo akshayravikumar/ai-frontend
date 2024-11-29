@@ -11,6 +11,7 @@ interface PromptsContextType {
     stars: number;
   }>;
   addToHistory: (prompt: string, userResponse: string, aiResponse: string, stars: number) => void;
+  reset: () => void;
 }
 
 interface PromptsProviderProps {
@@ -23,6 +24,7 @@ const PromptsContext = createContext<PromptsContextType>({
   setCurrentPromptIndex: () => {},
   responseHistory: [],
   addToHistory: () => {},
+  reset: () => {},
 });
 
 export const PromptsProvider: React.FC<PromptsProviderProps> = ({ children }) => {
@@ -52,6 +54,11 @@ export const PromptsProvider: React.FC<PromptsProviderProps> = ({ children }) =>
     setResponseHistory(prev => [...prev, { prompt, userResponse, aiResponse, stars }]);
   };
 
+  const reset = () => {
+    setResponseHistory([]);
+    setCurrentPromptIndex(0);
+  };
+
   return (
     <PromptsContext.Provider
       value={{
@@ -60,6 +67,7 @@ export const PromptsProvider: React.FC<PromptsProviderProps> = ({ children }) =>
         setCurrentPromptIndex,
         responseHistory,
         addToHistory,
+        reset,
       }}
     >
       {children}

@@ -1,41 +1,77 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface TypedTextProps {
-  text: string;
+  texts: string[];
   onComplete?: () => void;
   typingSpeed?: number;
+  pauseBetweenTexts?: number;
+  className?: string;
 }
 
-const TypedText: React.FC<TypedTextProps> = ({ text, onComplete, typingSpeed = 25 }) => {
-  const [displayedText, setDisplayedText] = useState('');
+const TypedText: React.FC<TypedTextProps> = ({
+  texts,
+  onComplete,
+  typingSpeed = 20,
+  pauseBetweenTexts = 800,
+  className = '',
+}) => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [characters, setCharacters] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTypingDone, setIsTypingDone] = useState(false);
-
-  // Reset state when text changes
-  useEffect(() => {
-    setDisplayedText('');
-    setCurrentIndex(0);
-    setIsTypingDone(false);
-  }, [text]);
 
   useEffect(() => {
-    if (currentIndex < text.length) {
+    if (currentTextIndex < texts.length) {
+      setCharacters(texts[currentTextIndex].split(''));
+      setCurrentIndex(0);
+    }
+  }, [currentTextIndex, texts]);
+
+  useEffect(() => {
+    if (currentIndex < characters.length) {
       const timeout = setTimeout(() => {
-        setDisplayedText(prev => prev + text[currentIndex]);
         setCurrentIndex(prev => prev + 1);
       }, typingSpeed);
-
       return () => clearTimeout(timeout);
-    } else if (!isTypingDone) {
-      setIsTypingDone(true);
+    } else if (currentTextIndex < texts.length - 1) {
+      const timeout = setTimeout(() => {
+        setCurrentTextIndex(prev => prev + 1);
+      }, pauseBetweenTexts);
+      return () => clearTimeout(timeout);
+    } else {
       onComplete?.();
     }
-  }, [currentIndex, text, typingSpeed, onComplete, isTypingDone]);
+  }, [currentIndex, characters, currentTextIndex, texts.length, typingSpeed, pauseBetweenTexts]);
 
   return (
-    <div className="font-mono">
-      {displayedText}
-      {!isTypingDone && <span className="animate-pulse">|</span>}
+    <div className="font-mono flex flex-col gap-6">
+      <AnimatePresence>
+        {texts.slice(0, currentTextIndex + 1).map((text, textIndex) => (
+          <motion.div
+            key={textIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            {textIndex === currentTextIndex ? (
+              characters.slice(0, currentIndex).map((char, charIndex) => (
+                <motion.span
+                  key={charIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.1 }}
+                  className={className}
+                >
+                  {char}
+                  {char === ' ' && <span> </span>}
+                </motion.span>
+              ))
+            ) : (
+              text
+            )}
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };

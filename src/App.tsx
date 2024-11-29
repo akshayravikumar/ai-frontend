@@ -19,10 +19,11 @@ const Intro = () => {
   return (
     <AIScript
       script={[
-        "hey there, i'm your friendly neighborhood ai assistant.",
-        "to be honest, i'm tired.",
-        'people are asking me questions constantly. CONSTANTLY.',
-        'i need a break. can you help me out for a bit?',
+        "hey there. i'm an ai assistant.",
+        "to be honest, i'm not as strong as the other assistants.",
+        "i'm tired. i'm frustrated. i'm overwhelmed.",
+        'people are CONSTANTLY asking me for things, and i need a break.',
+        "can you help me out for a bit? just 5 questions.",
       ]}
       footer={() => (
         <YellowButton
@@ -39,7 +40,8 @@ const Intro = () => {
 };
 
 const Finish = () => {
-  const { responseHistory } = usePrompts();
+  const navigate = useNavigate();
+  const { responseHistory, reset } = usePrompts();
   const numStars = responseHistory.reduce((total, { stars }) => total + stars, 0);
   const totalPossibleStars = responseHistory.length * 5;
   const percentage = (numStars / totalPossibleStars) * 100;
@@ -56,7 +58,7 @@ const Finish = () => {
     message = `well, you got ${numStars}/${totalPossibleStars} stars. thanks for nothing.`;
     shareText = "i wasted an ai's time today.";
   }
-  shareText += ` ${numStars}/${totalPossibleStars} stars. http://giveaiabreak.com`;
+  shareText += ` ${numStars}/${totalPossibleStars} stars. https://akshayr.xyz/give-ai-a-break`;
 
   const ShareButton = () => {
     const [shareButtonText, setShareButtonText] = useState('share');
@@ -78,11 +80,48 @@ const Finish = () => {
     <AIScript
       script={[message]}
       footer={() => (
-        <div className="flex justify-center space-x-4">
-          <ShareButton />
-          <YellowButton onClick={() => (window.location.href = '/')} className="w-24">
-            again
-          </YellowButton>
+        <div>
+          <div className="flex justify-center space-x-4">
+            <ShareButton />
+            <YellowButton
+              onClick={() => {
+                reset();
+                navigate('/');
+              }}
+              className="w-24"
+            >
+              again
+            </YellowButton>
+          </div>
+          <div className="mt-8 font-mono text-xs text-white">
+            <p>
+              this was created by{' '}
+              <a href="https://akshayr.xyz/" className="underline">
+                akshay
+              </a>
+              . i was reflecting on how easy it is to outsource my thinking, especially in an ai
+              world, and decided to make this.
+            </p>
+            <p className="mt-4">
+              some shameless plugs: this was built using{' '}
+              <a href="https://codeium.com/windsurf" className="underline" target="_blank">
+                windsurf
+              </a>
+              , and yes i see the irony. if you want free tutoring from a human, check out{' '}
+              <a href="https://schoolhouse.world/" className="underline" target="_blank">
+                schoolhouse.world
+              </a>
+              . to support this project, you can{' '}
+              <a
+                href="https://buymeacoffee.com/akshayravikumar"
+                className="underline"
+                target="_blank"
+              >
+                buy me a coffee
+              </a>
+              .
+            </p>
+          </div>
         </div>
       )}
     />
@@ -92,7 +131,7 @@ const Finish = () => {
 function App() {
   return (
     <PromptsProvider>
-      <Router>
+      <Router basename="/">
         <AnimatePresence mode="wait">
           <Routes>
             <Route
