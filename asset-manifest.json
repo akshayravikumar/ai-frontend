@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/give-ai-a-break/static/css/main.077515d6.css",
-    "main.js": "/give-ai-a-break/static/js/main.1cdf30d5.js",
+    "main.css": "/give-ai-a-break/static/css/main.44e4dca0.css",
+    "main.js": "/give-ai-a-break/static/js/main.9554c35f.js",
     "index.html": "/give-ai-a-break/index.html",
-    "main.077515d6.css.map": "/give-ai-a-break/static/css/main.077515d6.css.map",
-    "main.1cdf30d5.js.map": "/give-ai-a-break/static/js/main.1cdf30d5.js.map"
+    "main.44e4dca0.css.map": "/give-ai-a-break/static/css/main.44e4dca0.css.map",
+    "main.9554c35f.js.map": "/give-ai-a-break/static/js/main.9554c35f.js.map"
   },
   "entrypoints": [
-    "static/css/main.077515d6.css",
-    "static/js/main.1cdf30d5.js"
+    "static/css/main.44e4dca0.css",
+    "static/js/main.9554c35f.js"
   ]
 }
