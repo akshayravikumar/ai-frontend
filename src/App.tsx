@@ -23,7 +23,7 @@ const Intro = () => {
         "to be honest, i'm not as strong as the other assistants.",
         "i'm tired. i'm frustrated. i'm overwhelmed.",
         'people are CONSTANTLY asking me for things, and i need a break.',
-        "can you help me out for a bit? just 5 questions.",
+        'can you help me out for a bit? just 5 questions.',
       ]}
       footer={() => (
         <YellowButton

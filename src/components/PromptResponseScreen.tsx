@@ -113,7 +113,7 @@ const PromptResponseScreen: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-yellow-400">
       <AnimatePresence mode="wait">
-      {!isResponseMode && prompt == null && (
+        {!isResponseMode && prompt == null && (
           <motion.div
             key="loading"
             initial={{ opacity: 0 }}

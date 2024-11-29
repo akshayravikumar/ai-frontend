@@ -17,7 +17,12 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onStart }) => {
     >
       <div className="w-full max-w-2xl space-y-8 text-center">
         <h1>
-          <TypedText texts={['help out an ai']} typingSpeed={30} pauseBetweenTexts={0} className="text-4xl" />
+          <TypedText
+            texts={['help out an ai']}
+            typingSpeed={30}
+            pauseBetweenTexts={0}
+            className="text-4xl"
+          />
         </h1>
         <YellowButton onClick={onStart} initiallyHidden={true} showDelay={1} className="mx-auto">
           start

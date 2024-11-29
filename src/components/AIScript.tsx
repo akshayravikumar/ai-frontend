@@ -22,12 +22,8 @@ const AIScript: React.FC<AIScriptProps> = ({ footer, script }) => {
       transition={{ duration: 1 }}
     >
       <div className="w-full max-w-3xl space-y-8 text-center">
-        <div className="whitespace-pre-line font-mono text-md leading-loose text-yellow-400 md:text-xl">
-          <TypedText
-            texts={script}
-            onComplete={handleTypingComplete}
-            typingSpeed={15}
-          />
+        <div className="text-md whitespace-pre-line font-mono leading-loose text-yellow-400 md:text-xl">
+          <TypedText texts={script} onComplete={handleTypingComplete} typingSpeed={15} />
         </div>
         {isTypingComplete && footer && (
           <motion.div

@@ -43,7 +43,7 @@ const TypedText: React.FC<TypedTextProps> = ({
   }, [currentTextIndex, displayedChars, texts, typingSpeed, pauseBetweenTexts, onComplete]);
 
   return (
-    <div className="font-mono flex flex-col gap-6">
+    <div className="flex flex-col gap-6 font-mono">
       <AnimatePresence>
         {texts.slice(0, currentTextIndex + 1).map((text, index) => (
           <motion.div
